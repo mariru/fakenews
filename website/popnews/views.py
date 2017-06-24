@@ -25,10 +25,23 @@ def save_article(request):
     # Clean url
     url = clean_url(url)
 
+    # Classify url
+    # TODO(maja)
+
+    # Save url
+    article, _ = Article.objects.get_or_create(url=url)
+    article_save, _ = ArticleSave.objects.get_or_create(user=user,
+                                                        article=article)
     return JsonResponse({'bias': -10})
+
 
 @login_required
 def user_stats(request):
     user = request.user
     articles_saved = ArticleSave.objects.filter(user=user)
     return JsonResponse({'articles': len(articles_saved)})
+
+
+@login_required
+def test_save(request):
+    return render(request, 'popnews/test_save.html')

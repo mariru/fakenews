@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <button id="btn">Test Post</button>
+    
+    <script type="text/javascript">
+      $("#btn").click(function(){
+      $.post("/popnews/save", JSON.stringify({"url": "https://www.nytimes.com/2017/06/24/science/medicaid-cutbacks-elderly-nursing-homes.html?ribbon-ad-idx=3&rref=homepage&module=Ribbon&version=origin&region=Header&action=click&contentCollection=Home%20Page&pgtype=article"}), function(data, status){
+      alert("Data: " + data + "\nStatus: " + status);
+      }, dataType='json'
+      );
+      
+});
+      </script>
+  </body>
+</html>
