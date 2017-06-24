@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+}
+
+#pop-main-container {
+  display: inline-block;
+  left: 300px;
+  position: relative;
+  overflow: hidden;
+}
+
+#pop-main-sidebar {
+  z-index: 1000000;
+  position: fixed;
+  background-color: gray;
+  width: 300px;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
