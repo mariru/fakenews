@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__
+*.py[cod]
+*~
+
+# Mac related
+.DS_Store
+
+# Emacs temp files
+[#]*[#]
+.\#*
+
+# Databases
+*.sqlite3
