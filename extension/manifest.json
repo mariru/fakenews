@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Pop",
+  "description": "Tracks your news history.",
+  "version": "0.0.1",
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "Pop News"
+  },
+  "permissions": [
+    "activeTab",
+    "https://*/*",
+    "http://*/*"
+  ]
+}

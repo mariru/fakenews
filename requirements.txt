@@ -2,3 +2,5 @@ Django==1.11.2
 requests==2.13.0
 tensorflow==1.1.0
 pandas==0.17.1
+justext==2.2.0
+gevent=1.2.2
