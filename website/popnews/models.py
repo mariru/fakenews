@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 
 class UserProfile(models.Model):
@@ -9,8 +10,14 @@ class UserProfile(models.Model):
 
 
 class Article(models.Model):
-    user = models.ForeignKey(User)
     url = models.URLField()
+    users = models.ManyToManyField(User, through='ArticleSave')
+
+
+class ArticleSave(models.Model):
+    user = models.ForeignKey(User)
+    article = models.ForeignKey(Article)
+    datetime = models.DateTimeField(default=timezone.now)
 
 
 @receiver(post_save, sender=User)
