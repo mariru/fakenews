@@ -5,5 +5,9 @@ from popnews.models import ArticleSave
 from popnews.models import UserProfile
 
 admin.site.register(Article)
-admin.site.register(ArticleSave)
+
+@admin.register(ArticleSave)
+class ArticleSaveAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'article', 'datetime')
+
 admin.site.register(UserProfile)

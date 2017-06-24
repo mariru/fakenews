@@ -8,10 +8,16 @@ from django.utils import timezone
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
 
+    def __str__(self):
+        return self.user.username
+
 
 class Article(models.Model):
     url = models.URLField()
     users = models.ManyToManyField(User, through='ArticleSave')
+
+    def __str__(self):
+        return self.url
 
 
 class ArticleSave(models.Model):
