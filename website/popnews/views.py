@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from popnews.classify import predict_image_bias
+from popnews.decorators import autologin
 from popnews.predict import pred_bias
 from popnews.helpers import clean_url
 from popnews.helpers import extract_text_and_image
@@ -19,6 +20,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 @csrf_exempt
+@autologin
 @login_required
 def save_article(request):
     user = request.user
@@ -52,14 +54,17 @@ def save_article(request):
     return JsonResponse({'bias': -10})
 
 
+@autologin
 @login_required
 def user_stats(request):
     user = request.user
-    articles_saved = ArticleSave.objects.filter(user=user).values('article__url',
-        'article__title', 'article__icon')
+    articles_saved = (ArticleSave.objects.filter(user=user)
+                      .values('article__url',
+                              'article__title', 'article__icon'))
     return JsonResponse({'articles': list(articles_saved)})
 
 
+@autologin
 @login_required
 def test_save(request):
     return render(request, 'popnews/test_save.html')

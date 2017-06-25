@@ -1,10 +1,11 @@
 import glob
+import json
+import math
 import numpy as np
 import os
 import pandas as pd
 import pickle
 import re
-import json
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -17,6 +18,9 @@ for i,label in enumerate(labels):
 V = 15000
 unigram_cnt = df[1].values
 phrase_rank = np.array([word.count('_') for word in df[0]])
+
+def sigmoid(x):
+  return 1 / (1 + math.exp(-x))
 
 def get_model():
     fit = pickle.load(open(os.path.join(BASE_DIR,
@@ -53,10 +57,5 @@ def pred_bias(text):
     text = text2numbers(text)
     emb, w = get_model()
     features = extract_features(text, emb)
-    pred = features.dot(w)
-    if pred<-1:
-        return 'right'
-    if pred> 1:
-        return 'left'
-    else:
-        return 'neutral'
+    pred = sigmoid(features.dot(w))
+    return pred
