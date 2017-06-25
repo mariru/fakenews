@@ -6,11 +6,12 @@
 
   <body>
     <button id="btn">Test Post</button>
+    <input id="url"></input>
     
     <script type="text/javascript">
       $("#btn").click(function(){
-      $.post("/popnews/save", JSON.stringify({"url": "https://www.nytimes.com/2017/06/24/science/medicaid-cutbacks-elderly-nursing-homes.html?ribbon-ad-idx=3&rref=homepage&module=Ribbon&version=origin&region=Header&action=click&contentCollection=Home%20Page&pgtype=article"}), function(data, status){
-      alert("Data: " + data + "\nStatus: " + status);
+      var url = $("#url").val();
+      $.post("/popnews/save", JSON.stringify({"url": url}), function(data, status){
       }, dataType='json'
       );
       

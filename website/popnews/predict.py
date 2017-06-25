@@ -1,11 +1,15 @@
 import glob
 import numpy as np
+import os
 import pandas as pd
 import pickle
 import re
 import json
 
-df = pd.read_csv('parameters/unigram.txt', delimiter='\t',header=None)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+df = pd.read_csv(os.path.join(BASE_DIR, 'parameters/unigram.txt'),
+                 delimiter='\t',header=None)
 labels = df[0].values
 vocab = {}
 for i,label in enumerate(labels):
@@ -15,7 +19,8 @@ unigram_cnt = df[1].values
 phrase_rank = np.array([word.count('_') for word in df[0]])
 
 def get_model():
-    fit = pickle.load(open('parameters/model_parameters.pkl'))
+    fit = pickle.load(open(os.path.join(BASE_DIR,
+                                        'parameters/model_params.pkl'), 'rb'))
     return fit['emb'], fit['w']
 
 def words2phrases(text):

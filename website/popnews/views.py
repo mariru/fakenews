@@ -7,7 +7,10 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+from popnews.classify import predict_image_bias
+from popnews.predict import pred_bias
 from popnews.helpers import clean_url
+from popnews.helpers import extract_text_and_image
 from popnews.models import Article
 from popnews.models import ArticleSave
 
@@ -28,10 +31,15 @@ def save_article(request):
     url = clean_url(url)
 
     # Extract text and image
-
+    text, image_url = extract_text_and_image(url)
 
     # Classify url
-    # TODO(maja)
+    if text:
+        label = pred_bias(text)
+        print(label)
+    if image_url:
+        concept, concept_value = predict_image_bias(image_url)
+        print(concept, concept_value)
 
     # Save url
     article, _ = Article.objects.get_or_create(url=url)

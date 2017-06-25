@@ -22,4 +22,9 @@ def predict_image_bias(url):
     model = app.models.get('news-photos')
     image = ClImage(url=url)
     data = model.predict([image])
-    return get_concept_scores(data)
+    concepts = get_concept_scores(data)
+
+    if concepts['bias'] > concepts['neutral']:
+        return 'bias', concepts['bias']
+    else:
+        return 'neutral', concepts['neutral']
