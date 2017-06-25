@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+from popnews.helpers import clean_url
+from popnews.models import Article
 from popnews.models import ArticleSave
 
 
