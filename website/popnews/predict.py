@@ -62,7 +62,11 @@ def pred_bias(text):
     features = extract_features(text, emb)
     pred = sigmoid(neural_network(features, w_1, w_2))
     # Rescale to use more of 0-1 range
+
     pred = pred - 0.5
-    pred = pred * 5
+
+    # Flip because frontend assumes 0 is liberal and 1 is conservative and
+    # ML model assumes 0 is conservative and 1 is liberal.
+    pred = pred * -5
     pred = pred + 0.5
     return pred
