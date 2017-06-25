@@ -54,9 +54,9 @@ def pred_bias(text):
     emb, w = get_model()
     features = extract_features(text, emb)
     pred = features.dot(w)
-    if pred<-1:
+    if pred<-0:
         return 'right'
-    if pred> 1:
+    if pred> 0.06:
         return 'left'
     else:
         return 'neutral'
