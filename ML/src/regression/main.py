@@ -9,7 +9,7 @@ from tensorflow.contrib.distributions import Normal, Bernoulli
 
 data_folder = '../../dat/fake/'
 logdir = make_dir('')
-fit = pickle.load(open('../fits/fake/EF_EMB_17_06_24_19_08_36/variational6.dat'))
+fit = pickle.load(open('../fits/fake/EF_EMB_17_06_24_19_08_36/variational9.dat'))
 
 ### DATA
 left_examples = [data_folder+'train/'+fname for fname in pd.read_csv(data_folder + 'left.txt', header = None)[0].values]
@@ -19,12 +19,10 @@ g_examples = glob.glob(data_folder +'train/g*')
 
 ### PARAMETERS
 
-K = 20
-L = 15000
-mb = 500
-eta = 0.1
+mb = 200
+eta = 0.0001
 lam = 1.0
-n_iter = 5000
+n_iter = 50000
 
 ### Embeddings
 #rho = np.random.randn(L, K)
@@ -33,21 +31,25 @@ rho = fit['rho']
 alpha = fit['alpha']
 
 emb = np.hstack((rho, alpha))
-K = emb.shape[1]
+L, K = emb.shape
 
 ### Parameters
 relevance = tf.nn.sigmoid(tf.Variable(np.random.randn(L).astype('float32')))
 print('NOT USING RELEVANCE')
-w = tf.Variable(np.random.randn(K,1).astype('float32'))
+w = tf.Variable(0.001*np.random.randn(K,1).astype('float32'))
+#b = tf.Variable(0.0, tf.float32)
+b = 0.0
 
 ### prior on w
 prior = Normal(loc = 0.0, scale = lam)
-log_prior = tf.reduce_sum(prior.log_prob(w))
+log_prior = tf.reduce_sum(prior.log_prob(w) + prior.log_prob(b))
 
 ### placeholders for data minibatches
 
 def extract_features(text):
      #takes numpy array of text and transforms it into a feature representation
+     if len(text) == 0:
+         return np.zeros((K))
      return np.mean(emb[text], axis=0)
 
 def next_batch(file_list):
@@ -62,22 +64,22 @@ left_ex = tf.placeholder(tf.float32, shape = (mb, K))
 right_ex = tf.placeholder(tf.float32, shape = (mb, K))
 g_ex = tf.placeholder(tf.float32, shape = (mb, K))
 
-left_eta = tf.matmul(left_ex, w)
-right_eta = tf.matmul(right_ex, w)
-g_eta = tf.matmul(g_ex, w)
+left_eta = b + tf.matmul(left_ex, w)
+right_eta = b + tf.matmul(right_ex, w)
+g_eta = b + tf.matmul(g_ex, w)
 
 left_y = Bernoulli(logits = left_eta)
 right_y = Bernoulli(logits = right_eta)
 g_y = Bernoulli(logits = g_eta)
 
-left_bias =  tf.reduce_sum(left_y.log_prob(1.0))
-right_bias =  tf.reduce_sum(right_y.log_prob(0.0)) 
-neutral =  tf.reduce_sum(g_y.log_prob(0.5))
+left_bias =  tf.reduce_mean(left_y.log_prob(1.0))
+right_bias =  tf.reduce_mean(right_y.log_prob(0.0)) 
+neutral =  tf.reduce_mean(g_y.log_prob(0.5))
 
-loss = log_prior + left_bias + right_bias + neutral
+loss = - (log_prior + 1000.0*(left_bias + right_bias + neutral))
 
 ### TRAINING
-optimizer = tf.train.AdagradOptimizer(eta)
+optimizer = tf.train.AdamOptimizer(eta)
 train = optimizer.minimize(loss)
 sess = tf.Session()
 with sess.as_default():
@@ -89,7 +91,10 @@ with tf.name_scope('objective'):
     tf.summary.scalar('neutral', neutral)
     tf.summary.scalar('right_bias', right_bias)
     tf.summary.scalar('left_bias', left_bias)
-variable_summaries('weights',w)
+variable_summaries('weights', w)
+variable_summaries('left_eta', left_eta)
+variable_summaries('right_eta', right_eta)
+variable_summaries('g_eta', g_eta)
 summaries = tf.summary.merge_all()
 train_writer = tf.summary.FileWriter(logdir, sess.graph)
 
@@ -110,7 +115,8 @@ for step in range(n_iter):
 
 
 with sess.as_default():
-  dat = {'rho':  rho.eval(),
-         'alpha':  alpha.eval(),
-         'w': w.eval()}
+    dat = {'emb': emb,
+           #'b': b.eval(),
+           'w': w.eval()}
+
 pickle.dump( dat, open( os.path.join(logdir, "model_params.pkl"), "a+" ) )
