@@ -11,9 +11,9 @@ PAGE_SIZE = 50
 SECTIONS = ['artanddesign', 'australia-news', 'better-business', 'books', 'business', 'cardiff', 'childrens-books-site', 'cities', 'commentisfree', 'community', 'crosswords', 'culture', 'culture-network', 'culture-professionals-network', 'edinburgh', 'education', 'enterprise-network', 'environment', 'extra', 'fashion', 'film', 'football', 'global-development', 'global-development-professionals-network', 'government-computing-network', 'guardian-professional', 'healthcare-network', 'help', 'higher-education-network', 'housing-network', 'inequality', 'info', 'jobsadvice', 'katine', 'law', 'leeds', 'lifeandstyle', 'local', 'local-government-network', 'media', 'media-network', 'membership', 'money', 'music', 'news', 'politics', 'public-leaders-network', 'science', 'search', 'small-business-network', 'social-care-network', 'social-enterprise-network', 'society', 'society-professionals', 'sport', 'stage', 'teacher-network', 'technology', 'theguardian', 'theobserver', 'travel', 'travel/offers', 'tv-and-radio', 'uk-news', 'us-news', 'voluntary-sector-network', 'weather', 'women-in-leadership', 'world']
 
 def get_params():
- return {'api-key': API_KEY,
-         'page-size': PAGE_SIZE,
-         'format': 'json'}
+    return {'api-key': API_KEY,
+            'page-size': PAGE_SIZE,
+            'format': 'json'}
 
 
 def content_search(section, num_results=50, query=None):
@@ -40,7 +40,7 @@ def content_search(section, num_results=50, query=None):
         pages = res['response']['pages']
         print('Total pages:', pages)
         exceeded_pages = pages == page_index
-        exceeded_num_results = page_index >= num_results / 50
+        exceeded_num_results = page_index >= num_results / PAGE_SIZE
         has_results = not (exceeded_pages or exceeded_num_results)
 
     return results
