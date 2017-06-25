@@ -76,6 +76,26 @@ body {
     #pop-main-logo {
       margin-left: auto;
       margin-right: auto;
+
+      &:hover {
+        background-color: white !important;
+      }
+
+      #pop-logo-text {
+        &:after {
+          content: 'Pop';
+        }
+
+        &:hover {
+          font-size: 50px !important;
+          cursor: pointer !important;
+          color: $theme-color !important;
+          text-shadow: none !important;
+          &:after {
+            content: '+' !important;
+          }
+        }
+      }
     }
   }
   
@@ -148,7 +168,7 @@ body {
     .sidebar-article-bias {
       width: 100%;
       background-color: lighten($dark-gray, 10%);
-      height: $text-padding;
+      height: 7px;
       position: relative;
 
       .article-bias-rating {

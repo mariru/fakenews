@@ -51,6 +51,17 @@ body {
     #pop-sidebar-container #sidebar-header #pop-main-logo {
       margin-left: auto;
       margin-right: auto; }
+      #pop-sidebar-container #sidebar-header #pop-main-logo:hover {
+        background-color: white !important; }
+      #pop-sidebar-container #sidebar-header #pop-main-logo #pop-logo-text:after {
+        content: 'Pop'; }
+      #pop-sidebar-container #sidebar-header #pop-main-logo #pop-logo-text:hover {
+        font-size: 50px !important;
+        cursor: pointer !important;
+        color: #4CAF50 !important;
+        text-shadow: none !important; }
+        #pop-sidebar-container #sidebar-header #pop-main-logo #pop-logo-text:hover:after {
+          content: '+' !important; }
   #pop-sidebar-container #sidebar-content {
     font-family: 'Roboto', sans-serif;
     font-size: 13px;
@@ -101,7 +112,7 @@ body {
     #pop-sidebar-container #sidebar-footer .sidebar-article-bias {
       width: 100%;
       background-color: #4f4f4f;
-      height: 10px;
+      height: 7px;
       position: relative; }
       #pop-sidebar-container #sidebar-footer .sidebar-article-bias .article-bias-rating {
         width: calc(100% / 7);

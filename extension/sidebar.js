@@ -77,9 +77,7 @@
       <div id="pop-sidebar-container">
         <div id="sidebar-header">
           <div id="pop-main-logo">
-            <div id="pop-logo-text">
-              Pop
-            </div>
+            <div id="pop-logo-text"></div>
           </div>
         </div>
         <div id="sidebar-content"></div>
