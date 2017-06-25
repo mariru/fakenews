@@ -8,13 +8,6 @@ CLIENT_SECRET = 'srNpkyHd1iaX7CpXcoqgwVgB7wvvSVHR2XiJONF1'
 def get_clarifai_api():
     return ClarifaiApp(CLIENT_ID, CLIENT_SECRET)
 
-# app.inputs.create_image_from_url(url="https://static01.nyt.com/images/2017/06/24/world/europe/evac-img/evac-img-superJumbo.jpg", concepts=['neutral'])
-# app.inputs.create_image_from_url(url="http://cdn.liberalamerica.org/wp-content/uploads/2016/10/donald-trump-nuclear.jpg", concepts=['bias'])
-
-
-# model = app.models.create(model_id='news-photos', concepts=['neutral', 'bias'])
-# model.train()
-
 
 def bulk_upload(urls, concepts, not_concepts, app):
     # Bulk Import Images API
