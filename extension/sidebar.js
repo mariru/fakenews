@@ -1,5 +1,16 @@
 (function () {
 
+  const addArticle = () => {
+    chrome.runtime.sendMessage({action: 'ADD_ARTICLE'}, (data) => {
+      window.console.log(data);
+      $.post('http://localhost:8000/popnews/save', JSON.stringify({
+        'url': data.url,
+        'title': data.title,
+        'icon': data.icon
+      }), updateArticleList, dataType = 'json');
+    });
+  }
+
   const updateArticleList = () => {
     // Refresh existing bookmarks.
     $.get('http://localhost:8000/popnews/stats', (data) => {
@@ -41,6 +52,8 @@
         <div id="sidebar-footer"></div>
       </div>
     `);
+
+    $('#pop-main-logo').on('click', addArticle);
 
     updateArticleList();
   }
