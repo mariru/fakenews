@@ -33,20 +33,33 @@ body {
 
 #pop-main-container {
   display: inline-block;
-  left: $sidebar-width;
+  left: 0;
+  transform: none;
   position: relative;
   overflow: hidden;
+  transition: 2s;
+
+  &.active {
+    transform: translateX($sidebar-width);
+  }
 }
 
 #pop-sidebar-container {
   z-index: 1000000;
   position: fixed;
   width: $sidebar-width;
+  transform: translateX(-1 * $sidebar-width);
   height: 100vh;
   top: 0;
   background-color: $dark-gray;
-  box-shadow: 3px 0 10px $shadow-black;
+  box-shadow: none;
   box-sizing: border-box;
+  transition: 2s;
+
+  &.active {
+    box-shadow: 3px 0 10px $shadow-black;
+    transform: none;
+  }
 
   #sidebar-header {
     height: $logo-width * 2;

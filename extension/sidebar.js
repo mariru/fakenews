@@ -35,4 +35,7 @@
     `);
   }
 
+  $('#pop-sidebar-container').toggleClass('active');
+  $('#pop-main-container').toggleClass('active');
+
 })();

@@ -20,19 +20,28 @@ body {
 
 #pop-main-container {
   display: inline-block;
-  left: 300px;
+  left: 0;
+  transform: none;
   position: relative;
-  overflow: hidden; }
+  overflow: hidden;
+  transition: 3s; }
+  #pop-main-container.active {
+    transform: translateX(300px); }
 
 #pop-sidebar-container {
   z-index: 1000000;
   position: fixed;
   width: 300px;
+  transform: translateX(-300px);
   height: 100vh;
   top: 0;
   background-color: #353535;
-  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
-  box-sizing: border-box; }
+  box-shadow: none;
+  box-sizing: border-box;
+  transition: 3s; }
+  #pop-sidebar-container.active {
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
+    transform: none; }
   #pop-sidebar-container #sidebar-header {
     height: 140px;
     padding-top: 35px;
