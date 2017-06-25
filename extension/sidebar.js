@@ -16,7 +16,6 @@
   const updateArticleList = () => {
     // Refresh existing bookmarks.
     $.get('http://dev1.b12.io:8000/popnews/stats', (data) => {
-      window.console.log(data);
       $('#sidebar-content').html(''); // Clear existing fields.
       const allArticles = data.articles;
       const biasSum = 0;
