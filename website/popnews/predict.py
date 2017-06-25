@@ -20,7 +20,8 @@ phrase_rank = np.array([word.count('_') for word in df[0]])
 
 def get_model():
     fit = pickle.load(open(os.path.join(BASE_DIR,
-                                        'parameters/model_params.pkl'), 'rb'))
+                                        'parameters/model_params.pkl'), 'rb'),
+                      encoding='latin1')
     return fit['emb'], fit['w']
 
 def words2phrases(text):
@@ -30,6 +31,7 @@ def words2phrases(text):
             phrase = ' '+labels[idx]+' '
             old_phrase = phrase.replace('_',' ')
             text = text.replace(old_phrase, phrase)
+    return text
 
 def text2numbers(text):
     words = re.sub(r'[^a-zA-Z ]',r' ', text.replace('-\n','').replace('\n',' ')).lower()
