@@ -1,11 +1,10 @@
 /* Variables */
 $dark-gray: #353535;
-$darker-gray: #303030;
+$darker-gray: #252525;
 $shadow-black: rgba(0,0,0,0.3);
 
 $sidebar-width: 300px;
 $logo-width: 70px;
-$default-padding: 15px;
 $text-padding: 10px;
 
 body {
@@ -74,12 +73,19 @@ body {
   }
   
   #sidebar-content {
-    padding: $default-padding;
     font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    padding: 15px;
 
     .sidebar-article {
-      margin-top: $default-padding;
-      margin-bottom: $default-padding;
+      color: lighten($dark-gray, 40%);
+      background-color: lighten($dark-gray, 3%);
+      box-shadow: 3px 3px 3px rgba($darker-gray, 0.1);
+      border-radius: 2px;
+      padding: 15px;
+      margin-top: 3px;
+      margin-bottom: 3px;
 
       &:first-of-type {
         margin-top: 0;
@@ -89,18 +95,25 @@ body {
         margin-bottom: 0;
       }
 
-      .article-header {
-        padding: $text-padding $default-padding;
-      }
+      .article-icon {
+        float: left;
+        padding-right: $text-padding;
 
-      .article-content {
-        // Wrapper.
-        h1 {
-          font-size: 1rem;
-          letter-spacing: 0.01rem;
-          font-weight: 700;
+        img {
+          height: 16px;
+          width: 16px;
         }
       }
+
     }
+  }
+
+  #sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    height: $logo-width;
+    background-color: $dark-gray;
+    width: 100%;
+    box-shadow: -3px -2px 7px rgba($darker-gray, 0.2);
   }
 }

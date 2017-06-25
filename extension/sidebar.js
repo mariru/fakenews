@@ -1,14 +1,13 @@
 (function () {
 
-  const renderArticle = (url) => {
-    $('#sidebar-content').append(`
+  const renderArticle = (iconUrl='', headline='') => {
+    $('#sidebar-content').prepend(`
       <div class="sidebar-article">
-        <div class="article-header">
-          Huffington Post
+        <div class="article-icon">
+          <img src="${iconUrl}" alt="${headline}" />
         </div>
         <div class="article-content">
-          <h1>This is a Cool Headline!</h1>
-          <div>${url}</div>
+          ${headline}
         </div>
       </div>
     `);
@@ -34,9 +33,9 @@
       </div>
     `);
 
-    $.get('http://localhost:8000/popnews/stats', function (data) {
+    $.get('http://localhost:8000/popnews/stats', (data) => {
       const allArticles = data.articles;
-      $.each(allArticles, (idx, article) => renderArticle(article.article__url));
+      $.each(allArticles, (idx, article) => renderArticle('http://ashleyhlai.com/favicon.ico', article.article__url));
     });
   }
 
