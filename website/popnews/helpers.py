@@ -32,7 +32,10 @@ def extract_text(content):
 def extract_image(content):
     soup = BeautifulSoup(content)
     image_tag = soup.find('meta', property='og:image')
-    return image_tag.get('content', '')
+    if image_tag:
+        return image_tag.get('content', '')
+    else:
+        return None
 
 
 def extract_text_and_image(url):

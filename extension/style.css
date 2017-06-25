@@ -24,7 +24,7 @@ body {
   transform: none;
   position: relative;
   overflow: hidden;
-  transition: 3s; }
+  transition: 2s; }
   #pop-main-container.active {
     transform: translateX(300px); }
 
@@ -38,7 +38,7 @@ body {
   background-color: #353535;
   box-shadow: none;
   box-sizing: border-box;
-  transition: 3s; }
+  transition: 2s; }
   #pop-sidebar-container.active {
     box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
     transform: none; }
@@ -51,20 +51,42 @@ body {
       margin-left: auto;
       margin-right: auto; }
   #pop-sidebar-container #sidebar-content {
-    padding: 15px;
-    font-family: 'Roboto', sans-serif; }
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    padding: 0 15px 85px 15px; }
     #pop-sidebar-container #sidebar-content .sidebar-article {
-      margin-top: 15px;
-      margin-bottom: 15px; }
+      color: #9b9b9b;
+      background-color: #3d3d3d;
+      box-shadow: 3px 3px 3px rgba(37, 37, 37, 0.1);
+      border-radius: 2px;
+      padding: 10px;
+      margin-top: 3px;
+      margin-bottom: 3px;
+      overflow: auto; }
       #pop-sidebar-container #sidebar-content .sidebar-article:first-of-type {
         margin-top: 0; }
       #pop-sidebar-container #sidebar-content .sidebar-article:last-of-type {
         margin-bottom: 0; }
-      #pop-sidebar-container #sidebar-content .sidebar-article .article-header {
-        padding: 10px 15px; }
-      #pop-sidebar-container #sidebar-content .sidebar-article .article-content h1 {
-        font-size: 1rem;
-        letter-spacing: 0.01rem;
-        font-weight: 700; }
+      #pop-sidebar-container #sidebar-content .sidebar-article .article-icon {
+        float: left;
+        padding-right: 10px; }
+        #pop-sidebar-container #sidebar-content .sidebar-article .article-icon img {
+          height: 16px;
+          width: 16px; }
+      #pop-sidebar-container #sidebar-content .sidebar-article .article-content {
+        width: calc(100% - 16px - 10px);
+        float: right;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden; }
+  #pop-sidebar-container #sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    height: 70px;
+    background-color: #353535;
+    width: 100%;
+    box-shadow: -3px -2px 7px rgba(37, 37, 37, 0.2); }
 
 /*# sourceMappingURL=style.css.map */

@@ -16,6 +16,9 @@ class Article(models.Model):
     url = models.URLField()
     users = models.ManyToManyField(User, through='ArticleSave')
     bias = models.CharField(max_length=50, null=True, blank=True)
+    title = models.CharField(max_length=140, default='Untitled',
+                             null=True, blank=True)
+    icon = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return self.url
