@@ -23,6 +23,8 @@ def index(request):
 def save_article(request):
     user = request.user
     data = json.loads(request.body.decode())
+    title = data.get('title')
+    icon = data.get('icon')
     url = data.get('url')
     if not url:
         return HttpResponseBadRequest('Missing url')
@@ -42,7 +44,9 @@ def save_article(request):
         print(concept, concept_value)
 
     # Save url
-    article, _ = Article.objects.get_or_create(url=url)
+    article, _ = Article.objects.get_or_create(url=url,
+                                               title=title,
+                                               icon=icon)
     article_save, _ = ArticleSave.objects.get_or_create(user=user,
                                                         article=article)
     return JsonResponse({'bias': -10})
@@ -51,7 +55,8 @@ def save_article(request):
 @login_required
 def user_stats(request):
     user = request.user
-    articles_saved = ArticleSave.objects.filter(user=user).values('article__url')
+    articles_saved = ArticleSave.objects.filter(user=user).values('article__url',
+        'article__title', 'article__icon')
     return JsonResponse({'articles': list(articles_saved)})
 
 

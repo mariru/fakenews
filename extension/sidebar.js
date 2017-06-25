@@ -1,5 +1,14 @@
 (function () {
 
+  const updateArticleList = () => {
+    // Refresh existing bookmarks.
+    $.get('http://localhost:8000/popnews/stats', (data) => {
+      $('#sidebar-content').html(''); // Clear existing fields.
+      const allArticles = data.articles;
+      $.each(allArticles, (idx, article) => renderArticle(article.article__icon, article.article__title));
+    });
+  }
+
   const renderArticle = (iconUrl='', headline='') => {
     $('#sidebar-content').prepend(`
       <div class="sidebar-article">
@@ -33,10 +42,7 @@
       </div>
     `);
 
-    $.get('http://localhost:8000/popnews/stats', (data) => {
-      const allArticles = data.articles;
-      $.each(allArticles, (idx, article) => renderArticle('http://ashleyhlai.com/favicon.ico', article.article__url));
-    });
+    updateArticleList();
   }
 
   $('#pop-sidebar-container').toggleClass('active');

@@ -76,16 +76,17 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 13px;
     letter-spacing: 0.3px;
-    padding: 15px;
+    padding: 0 15px (15px + $logo-width) 15px;
 
     .sidebar-article {
       color: lighten($dark-gray, 40%);
       background-color: lighten($dark-gray, 3%);
       box-shadow: 3px 3px 3px rgba($darker-gray, 0.1);
       border-radius: 2px;
-      padding: 15px;
+      padding: $text-padding;
       margin-top: 3px;
       margin-bottom: 3px;
+      overflow: auto;
 
       &:first-of-type {
         margin-top: 0;
@@ -103,6 +104,15 @@ body {
           height: 16px;
           width: 16px;
         }
+      }
+
+      .article-content {
+        width: calc(100% - 16px - 10px);
+        float: right;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
     }
