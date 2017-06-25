@@ -22,11 +22,14 @@ phrase_rank = np.array([word.count('_') for word in df[0]])
 def sigmoid(x):
   return 1 / (1 + math.exp(-x))
 
+def neural_network(x, w_1, w_2):
+    return np.tanh(x.dot(w_1)).dot(w_2)
+
 def get_model():
     fit = pickle.load(open(os.path.join(BASE_DIR,
                                         'parameters/model_params.pkl'), 'rb'),
                       encoding='latin1')
-    return fit['emb'], fit['w']
+    return fit['emb'], fit['w_1'], fit['w_2']
 
 def words2phrases(text):
     for rank in range(max(phrase_rank),0,-1):
@@ -55,7 +58,7 @@ def extract_features(text, emb):
 
 def pred_bias(text):
     text = text2numbers(text)
-    emb, w = get_model()
+    emb, w_1, w_2 = get_model()
     features = extract_features(text, emb)
-    pred = sigmoid(features.dot(w))
+    pred = sigmoid(neural_network(features, w_1, w_2))
     return pred
