@@ -61,4 +61,8 @@ def pred_bias(text):
     emb, w_1, w_2 = get_model()
     features = extract_features(text, emb)
     pred = sigmoid(neural_network(features, w_1, w_2))
+    # Rescale to use more of 0-1 range
+    pred = pred - 0.5
+    pred = pred * 5
+    pred = pred + 0.5
     return pred
