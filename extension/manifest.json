@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Pop",
-  "description": "Tracks your news history.",
-  "version": "0.0.1",
+  "name": "POP",
+  "description": "Keep tabs on how one-sided the news you’ve been reading is.",
+  "version": "0.0.2",
   "background": {
     "scripts": [
       "background.js"

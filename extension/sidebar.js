@@ -18,8 +18,8 @@
     $.get('http://dev1.b12.io:8000/popnews/stats', (data) => {
       $('#sidebar-content').html(''); // Clear existing fields.
       const allArticles = data.articles;
-      const biasSum = 0;
-      const biasCount = 0;
+      let biasSum = 0;
+      let biasCount = 0;
       $.each(allArticles, (idx, article) => {
         renderArticle(article.article__icon, article.article__title, article.article__bias);
         if (article.article__bias) {
