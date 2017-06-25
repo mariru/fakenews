@@ -26,7 +26,7 @@ We trained PopAI with multiple data sources. News articles from the Guardian, we
  
 ### Machine Learning Pipeline
  
-Feature extractions. We used [Exponential Family Embeddings](https://github.com/mariru/exponential_family_embeddings) to extract semantic features of the vocabulary words. Embeddings are a powerful unsupervised text analysis technique that helps cope with the curse of dimensionality. Discrete representations of text are mapped into a continuous embedding space, which captures the semantics of the text.
+We used [Exponential Family Embeddings](https://github.com/mariru/exponential_family_embeddings) to extract semantic features of the vocabulary words. Embeddings are a powerful unsupervised text analysis technique that helps cope with the curse of dimensionality. Discrete representations of text are mapped into a continuous embedding space, which captures the semantics of the text.
  
 For each news article we then extract a feature vector, by averaging the word embeddings of the words that appear in the article.
  
