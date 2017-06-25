@@ -36,4 +36,4 @@ The PopAI training pipeline is implemented in [tensorflow](http://tensorflow.org
 
 ### Backend - Django Web Framework
 
-### Frontent - Chrome Extention
+### Frontent - Chrome Extension
