@@ -40,8 +40,8 @@ def save_article(request):
 @login_required
 def user_stats(request):
     user = request.user
-    articles_saved = ArticleSave.objects.filter(user=user)
-    return JsonResponse({'articles': len(articles_saved)})
+    articles_saved = ArticleSave.objects.filter(user=user).values('article__url')
+    return JsonResponse({'articles': list(articles_saved)})
 
 
 @login_required

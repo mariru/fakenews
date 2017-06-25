@@ -1,14 +1,14 @@
 (function () {
 
-  const addArticle = (article) => {
+  const renderArticle = (url) => {
     $('#sidebar-content').append(`
       <div class="sidebar-article">
         <div class="article-header">
-          ${article.publisher}
+          Huffington Post
         </div>
         <div class="article-content">
-          <h1>${article.headline}</h1>
-          <div>${article.summary}</div>
+          <h1>This is a Cool Headline!</h1>
+          <div>${url}</div>
         </div>
       </div>
     `);
@@ -33,6 +33,11 @@
         <div id="sidebar-footer"></div>
       </div>
     `);
+
+    $.get('http://localhost:8000/popnews/stats', function (data) {
+      const allArticles = data.articles;
+      $.each(allArticles, (idx, article) => renderArticle(article.article__url));
+    });
   }
 
   $('#pop-sidebar-container').toggleClass('active');
