@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto");
 /* Variables */
 body {
   margin: 0; }
@@ -61,8 +62,7 @@ body {
       box-shadow: 3px 3px 3px rgba(37, 37, 37, 0.1);
       border-radius: 2px;
       padding: 10px;
-      margin-top: 3px;
-      margin-bottom: 3px;
+      margin-top: 10px;
       overflow: auto; }
       #pop-sidebar-container #sidebar-content .sidebar-article:first-of-type {
         margin-top: 0; }
@@ -81,12 +81,32 @@ body {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden; }
+    #pop-sidebar-container #sidebar-content .sidebar-article-bias {
+      width: 100%;
+      background-color: #4f4f4f;
+      height: 3px;
+      position: relative; }
+      #pop-sidebar-container #sidebar-content .sidebar-article-bias .article-bias-rating {
+        width: calc(100% / 7);
+        height: 100%;
+        background-color: #4CAF50;
+        position: absolute; }
   #pop-sidebar-container #sidebar-footer {
     position: absolute;
     bottom: 0;
     height: 70px;
     background-color: #353535;
     width: 100%;
-    box-shadow: -3px -2px 7px rgba(37, 37, 37, 0.2); }
+    box-shadow: -3px -2px 10px rgba(37, 37, 37, 0.4); }
+    #pop-sidebar-container #sidebar-footer .sidebar-article-bias {
+      width: 100%;
+      background-color: #4f4f4f;
+      height: 10px;
+      position: relative; }
+      #pop-sidebar-container #sidebar-footer .sidebar-article-bias .article-bias-rating {
+        width: calc(100% / 7);
+        height: 100%;
+        background-color: #4CAF50;
+        position: absolute; }
 
 /*# sourceMappingURL=style.css.map */

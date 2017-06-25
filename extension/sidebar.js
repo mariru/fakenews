@@ -1,8 +1,10 @@
 (function () {
 
+  const biasFactor = 7;
+  let runningBias = 0.5;
+
   const addArticle = () => {
     chrome.runtime.sendMessage({action: 'ADD_ARTICLE'}, (data) => {
-      window.console.log(data);
       $.post('http://localhost:8000/popnews/save', JSON.stringify({
         'url': data.url,
         'title': data.title,
@@ -16,11 +18,40 @@
     $.get('http://localhost:8000/popnews/stats', (data) => {
       $('#sidebar-content').html(''); // Clear existing fields.
       const allArticles = data.articles;
-      $.each(allArticles, (idx, article) => renderArticle(article.article__icon, article.article__title));
+      const biasSum = 0;
+      const biasCount = 0;
+      $.each(allArticles, (idx, article) => {
+        renderArticle(article.article__icon, article.article__title, article.article__bias);
+        if (article.article__bias) {
+          biasSum += article.article__bias;
+          biasCount += 1;
+        }
+      });
+      // Update running bias.
+      runningBias = (biasCount === 0) ? runningBias : (biasSum / biasCount);
+      renderBiasMeter();
     });
   }
 
-  const renderArticle = (iconUrl='', headline='') => {
+  const calcBiasOffset = (bias) => {
+    bias = (bias < 0 || bias > 1) ? runningBias : bias;
+    const freeSpace = 100 - (100 / biasFactor);
+    const roundToFraction = Math.round(bias * (biasFactor - 1)) / (biasFactor - 1);
+    const percent = roundToFraction * freeSpace;
+    return percent;
+  }
+
+  const renderBiasMeter = () => {
+    const biasOffset = calcBiasOffset(runningBias);
+    $('#pop-bias-meter').append(`
+      <div class="sidebar-article-bias">
+        <div class="article-bias-rating" style="left:${biasOffset}%;"></div>
+      </div>
+    `);
+  }
+
+  const renderArticle = (iconUrl='', headline='Untitled', bias=0.5) => {
+    const biasOffset = calcBiasOffset(bias);
     $('#sidebar-content').prepend(`
       <div class="sidebar-article">
         <div class="article-icon">
@@ -29,6 +60,9 @@
         <div class="article-content">
           ${headline}
         </div>
+      </div>
+      <div class="sidebar-article-bias">
+        <div class="article-bias-rating" style="left:${biasOffset}%;"></div>
       </div>
     `);
   }
@@ -49,7 +83,10 @@
           </div>
         </div>
         <div id="sidebar-content"></div>
-        <div id="sidebar-footer"></div>
+        <div id="sidebar-footer">
+          <div id="pop-bias-scale"></div>
+          <div id="pop-bias-meter"></div>
+        </div>
       </div>
     `);
 
