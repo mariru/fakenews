@@ -4,6 +4,7 @@ from clarifai import rest
 from clarifai.rest import ClarifaiApp
 from clarifai.rest import Image as ClImage
 
+IMAGE_WEIGHT = 0.3
 
 def get_clarifai_api():
     return ClarifaiApp(settings.CLARIFAI_CLIENT_ID,
@@ -28,3 +29,12 @@ def predict_image_bias(url):
         return 'bias', concepts['bias']
     else:
         return 'neutral', concepts['neutral']
+
+
+def combine_text_and_image(bias, concept, concept_value):
+    bias = bias - 0.5
+    if concept == 'neutral':
+        bias = bias * (1 - IMAGE_WEIGHT * concept_value)  # decrease bias.
+    else:
+        bias = bias * (1 + IMAGE_WEIGHT * concept_value)  # increase bias.
+    return bias + 0.5

@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+from popnews.classify import combine_text_and_image
 from popnews.classify import predict_image_bias
 from popnews.decorators import autologin
 from popnews.predict import pred_bias
@@ -36,19 +37,30 @@ def save_article(request):
 
     # Extract text and image
     text, image_url = extract_text_and_image(url)
+    print(text[0:100])
+    print(image_url)
 
     # Classify url
+    bias = 0.5
     if text:
-        label = pred_bias(text)
-        print(label)
+        bias = pred_bias(text)
+        print('text bias', bias)
     if image_url:
         concept, concept_value = predict_image_bias(image_url)
-        print(concept, concept_value)
+        print('image bias', concept, concept_value)
+        bias = combine_text_and_image(bias, concept, concept_value)
+
+    # Cap bias to 0 to 1
+    bias = min(bias, 1)
+    bias = max(bias, 0)
+    print('total bias', bias)
 
     # Save url
-    article, _ = Article.objects.get_or_create(url=url,
-                                               title=title,
-                                               icon=icon)
+    article, _ = Article.objects.get_or_create(url=url)
+    article.bias = bias
+    article.title = title
+    article.icon = icon
+    article.save()
     article_save, _ = ArticleSave.objects.get_or_create(user=user,
                                                         article=article)
     return JsonResponse({'bias': -10})
@@ -60,7 +72,9 @@ def user_stats(request):
     user = request.user
     articles_saved = (ArticleSave.objects.filter(user=user)
                       .values('article__url',
-                              'article__title', 'article__icon'))
+                              'article__title',
+                              'article__icon',
+                              'article__bias'))
     return JsonResponse({'articles': list(articles_saved)})
 
 
