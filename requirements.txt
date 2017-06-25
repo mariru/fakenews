@@ -5,3 +5,4 @@ pandas==0.17.1
 justext==2.2.0
 gevent==1.2.2
 clarifai==2.0.29
+beautifulsoup4==4.6.0
