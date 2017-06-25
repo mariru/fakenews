@@ -27,6 +27,9 @@ def save_article(request):
     # Clean url
     url = clean_url(url)
 
+    # Extract text and image
+
+
     # Classify url
     # TODO(maja)
 
