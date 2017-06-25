@@ -43,6 +43,7 @@
 
   const renderBiasMeter = () => {
     const biasOffset = calcBiasOffset(runningBias);
+    $('#pop-bias-meter').html('');
     $('#pop-bias-meter').append(`
       <div class="sidebar-article-bias">
         <div class="article-bias-rating" style="left:${biasOffset}%;"></div>

@@ -175,12 +175,13 @@ body {
       color: lighten($dark-gray, 40%);
       display: inline-block;
       width: calc(33% - 3px);
+      padding-top: 5px;
     }
 
     .sidebar-article-bias {
       width: 100%;
       background-color: lighten($dark-gray, 10%);
-      height: 7px;
+      height: $text-padding;
       position: relative;
 
       .article-bias-rating {
