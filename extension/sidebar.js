@@ -5,7 +5,7 @@
 
   const addArticle = () => {
     chrome.runtime.sendMessage({action: 'ADD_ARTICLE'}, (data) => {
-      $.post('http://localhost:8000/popnews/save', JSON.stringify({
+      $.post('http://dev1.b12.io:8000/popnews/save', JSON.stringify({
         'url': data.url,
         'title': data.title,
         'icon': data.icon
@@ -15,7 +15,8 @@
 
   const updateArticleList = () => {
     // Refresh existing bookmarks.
-    $.get('http://localhost:8000/popnews/stats', (data) => {
+    $.get('http://dev1.b12.io:8000/popnews/stats', (data) => {
+      window.console.log(data);
       $('#sidebar-content').html(''); // Clear existing fields.
       const allArticles = data.articles;
       const biasSum = 0;
@@ -82,8 +83,12 @@
         </div>
         <div id="sidebar-content"></div>
         <div id="sidebar-footer">
-          <div id="pop-bias-scale"></div>
           <div id="pop-bias-meter"></div>
+          <div id="pop-bias-scale">
+            <div id="pop-bias-fl" class="pop-bias" style="text-align:left;">Liberal</div>
+            <div id="pop-bias-md" class="pop-bias" style="text-align:center;">Neutral</div>
+            <div id="pop-bias-fr" class="pop-bias" style="text-align:right;">Conservative</div>
+          </div>
         </div>
       </div>
     `);

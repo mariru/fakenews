@@ -165,6 +165,18 @@ body {
     width: 100%;
     box-shadow: -3px -2px 10px rgba($darker-gray, 0.4);
 
+    #pop-bias-scale {
+      padding: 0 5px;
+    }
+
+    .pop-bias {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px !important;
+      color: lighten($dark-gray, 40%);
+      display: inline-block;
+      width: calc(33% - 3px);
+    }
+
     .sidebar-article-bias {
       width: 100%;
       background-color: lighten($dark-gray, 10%);
